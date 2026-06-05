@@ -1,20 +1,29 @@
-import PlusSvg from "../plusSvg";
-import { useState } from "react";
+"use client";
 
-export default function Collapse({ title, text }) {
+import { useState } from "react";
+import PlusSvg from "../plusSvg";
+
+interface CollapseProps {
+  title: string;
+  text: string;
+}
+
+export default function Collapse({ title, text }: CollapseProps) {
   const [collapse, setCollapse] = useState(false);
+
   const showInfo = () => {
     setCollapse(!collapse);
   };
+
   return (
     <>
       <div
-        className=" border-t  py-4 lg:py-8 2xl:py-16 border-neutral-500 cursor-pointer"
+        className="border-t py-4 lg:py-8 2xl:py-16 border-neutral-500 cursor-pointer"
         key={title}
         onClick={showInfo}
       >
-        <div className=" flex justify-between w-full items-center">
-          <h1 className=" text-xl lg:text-4xl">{title}</h1>
+        <div className="flex justify-between w-full items-center">
+          <h1 className="text-xl lg:text-4xl">{title}</h1>
           <PlusSvg className={collapse ? "hidden" : "block"} />
           <p
             className={

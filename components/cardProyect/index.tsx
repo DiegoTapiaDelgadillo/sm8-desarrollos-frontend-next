@@ -1,13 +1,29 @@
 import Modal from "../modal";
-import clsx from "clsx";
 
-export default function CardProyect({ Fondo, title, text, imagenes, reduceBrightness }) {
+interface CardProyectProps {
+  Fondo: string;
+  title: string;
+  text: string;
+  imagenes: string[];
+  reduceBrightness?: boolean;
+}
+
+export default function CardProyect({
+  Fondo,
+  title,
+  text,
+  imagenes,
+  reduceBrightness,
+}: CardProyectProps) {
   return (
     <div
       className="relative min-h-screen flex items-end bg-cover bg-center px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 py-12"
       style={{ backgroundImage: `url(${Fondo})` }}
     >
-      {reduceBrightness && <div className="absolute inset-0 bg-black opacity-35"></div>} {/* Condicional Overlay */}
+      {reduceBrightness && (
+        <div className="absolute inset-0 bg-black opacity-35"></div>
+      )}
+
       <div className="relative z-10">
         <h1
           className="text-white text-2xl md:text-4xl lg:text-6xl xl:text-7xl"

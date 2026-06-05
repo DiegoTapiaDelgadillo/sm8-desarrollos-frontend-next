@@ -1,37 +1,40 @@
 "use client";
 
-import { useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 import AOS from "aos";
 import Navbar from "./navbar";
 import Footer from "./footer";
 
-export default function ClientShell({ children }) {
+type PageItem = {
+  text: string;
+  rute: string;
+};
+
+type SocialMediaItem = {
+  rute: string;
+  name: string;
+  icon: string;
+};
+
+type ClientShellProps = {
+  children: ReactNode;
+};
+
+export default function ClientShell({ children }: ClientShellProps) {
   useEffect(() => {
     AOS.init({
       duration: 1100,
     });
   }, []);
 
-  const pages = [
-    {
-      text: "Inicio",
-      rute: "/",
-    },
-    {
-      text: "Proyectos",
-      rute: "/Proyectos",
-    },
-    {
-      text: "Nosotros",
-      rute: "/Nosotros",
-    },
-    {
-      text: "Contacto",
-      rute: "/Contacto",
-    },
+  const pages: PageItem[] = [
+    { text: "Inicio", rute: "/" },
+    { text: "Proyectos", rute: "/Proyectos" },
+    { text: "Nosotros", rute: "/Nosotros" },
+    { text: "Contacto", rute: "/Contacto" },
   ];
 
-  const socialMedia = [
+  const socialMedia: SocialMediaItem[] = [
     {
       rute: "https://www.facebook.com/profile.php?id=61552973715738&mibextid=LQQJ4d",
       name: "Facebook",

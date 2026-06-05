@@ -15,7 +15,7 @@ export default function HomePage() {
     ScrollTop();
   }, []);
 
-  const arrayBitte = [
+  const arrayBitte: string[] = [
     "/assets/Bitte1.webp",
     "/assets/Bitte2.webp",
     "/assets/Bitte3.webp",
@@ -32,14 +32,14 @@ export default function HomePage() {
     "/assets/Bitte14.webp",
   ];
 
-  const arrayColina = [
+  const arrayColina: string[] = [
     "/assets/Colina1.webp",
     "/assets/Colina2.webp",
     "/assets/Colina3.webp",
     "/assets/Colina4.webp",
   ];
 
-  const arrayLaredo = [
+  const arrayLaredo: string[] = [
     "/assets/laredo2.webp",
     "/assets/laredo3.webp",
     "/assets/laredo4.webp",
@@ -56,48 +56,40 @@ export default function HomePage() {
     <>
       <Mural
         Fondo="/assets/Bitte7.webp"
-        title={"Espacios Vanguardistas, Funcionales e Inteligentes"}
+        title="Espacios Vanguardistas, Funcionales e Inteligentes"
       />
 
       <div className="px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 bg-white py-12 lg:py-24">
         <div data-aos="zoom-in">
-          <TextTitles text={"Desarrollando tus ideas con amor y pasión"} />
+          <TextTitles text="Desarrollando tus ideas con amor y pasión" />
           <TextBody
-            text={
-              "Sómos un equipo de expertos con más de 30 años de experiencia en el medio Profesional y Técnico para cubrir áreas, pre- fases y etapas de la construcción."
-            }
+            text="Sómos un equipo de expertos con más de 30 años de experiencia en el medio Profesional y Técnico para cubrir áreas, pre- fases y etapas de la construcción."
           />
-          <Button text={"Conoce nuestra historia"} rute={"/Nosotros"} />
+          <Button text="Conoce nuestra historia" rute="/Nosotros" />
         </div>
       </div>
 
       <div className="px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 bg-neutral-50 py-12 lg:py-24">
-        <TextTitles text={"Nuestros Principales Proyectos"} />
+        <TextTitles text="Nuestros Principales Proyectos" />
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-12 pt-6 lg:pt-12">
           <CardProyectos
             img="/assets/Bitte1.webp"
-            title={"Bitte"}
-            textBody={
-              "Impresionante y exclusivo desarrollo de 116 departamentos en el corazón de Tijuana, que mezcla un estilo minimalista y espacios abiertos con vegetación. Distinguiéndose por ser piezas vanguardistas de diseño, funcionales e inteligentes."
-            }
+            title="Bitte"
+            textBody="Impresionante y exclusivo desarrollo de 116 departamentos en el corazón de Tijuana, que mezcla un estilo minimalista y espacios abiertos con vegetación. Distinguiéndose por ser piezas vanguardistas de diseño, funcionales e inteligentes."
             imagenes={arrayBitte}
           />
 
           <CardProyectos
             img="/assets/cp.webp"
-            title={"Colina Park Tijuana"}
-            textBody={
-              "Concepto residencial que busca conectarte con los tuyos y con la naturaleza, haciendo posible una comunidad de innovación y modernidad."
-            }
+            title="Colina Park Tijuana"
+            textBody="Concepto residencial que busca conectarte con los tuyos y con la naturaleza, haciendo posible una comunidad de innovación y modernidad."
             imagenes={arrayColina}
           />
 
           <CardProyectos
             img="/assets/laredo3.webp"
-            title={"Sideways Living"}
-            textBody={
-              "Nueva propuesta vertical en La Cacho (Laredo, Tijuana) para las personas que buscan un estilo de vida urbano, activo, conectado y funcional. 82 unidades en 9 niveles."
-            }
+            title="Sideways Living"
+            textBody="Nueva propuesta vertical en La Cacho (Laredo, Tijuana) para las personas que buscan un estilo de vida urbano, activo, conectado y funcional. 82 unidades en 9 niveles."
             imagenes={arrayLaredo}
           />
         </div>
@@ -117,13 +109,11 @@ export default function HomePage() {
         </div>
 
         <div data-aos="zoom-in" data-aos-delay="1000">
-          <TextTitles text={"Nuestros servicios"} />
+          <TextTitles text="Nuestros servicios" />
           <TextBody
-            text={
-              "Gestiones Jurídicas y Técnicas, Estudios y Servicios de Campo, Ingeniería Financiera, Arquitectura del Negocio, Arquitectura e Ingenierías"
-            }
+            text="Gestiones Jurídicas y Técnicas, Estudios y Servicios de Campo, Ingeniería Financiera, Arquitectura del Negocio, Arquitectura e Ingenierías"
           />
-          <Button text={"Conocenos"} rute={"/Nosotros"} />
+          <Button text="Conocenos" rute="/Nosotros" />
         </div>
 
         <div className="hidden sm:block">

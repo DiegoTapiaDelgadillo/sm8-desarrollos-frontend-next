@@ -1,6 +1,13 @@
+"use client";
+
 import clsx from "clsx";
-import { useState, useEffect } from "react";
-export default function CloseButton({ onClick, className }) {
+
+interface CloseButtonProps {
+  onClick?: () => void;
+  className?: string;
+}
+
+export default function CloseButton({ onClick, className }: CloseButtonProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -10,7 +17,7 @@ export default function CloseButton({ onClick, className }) {
       stroke="currentColor"
       className={clsx(
         "w-6 h-6 stroke-white hover:stroke-white/50 cursor-pointer ease-in-out duration-300",
-        className
+        className,
       )}
       onClick={onClick}
     >

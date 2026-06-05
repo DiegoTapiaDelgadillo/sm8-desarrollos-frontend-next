@@ -1,9 +1,16 @@
-import React from "react";
+"use client";
+
+import { useState } from "react";
 import CloseButton from "../closeButton";
 import Carrusel from "../carrusel";
 
-export default function Modal({ imagenes }) {
-  const [showModal, setShowModal] = React.useState(false);
+type ModalProps = {
+  imagenes: string[];
+};
+
+export default function Modal({ imagenes }: ModalProps) {
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <>
       <button
@@ -13,6 +20,7 @@ export default function Modal({ imagenes }) {
       >
         Ver imágenes
       </button>
+
       {showModal ? (
         <>
           <div className="justify-center items-center flex fixed inset-0 z-50 outline-none focus:outline-none bg-my-blur animate-fade">
@@ -27,7 +35,11 @@ export default function Modal({ imagenes }) {
               </div>
             </div>
           </div>
-          <div className="opacity-80 fixed inset-0 z-40 bg-black"></div>
+
+          <div
+            className="opacity-80 fixed inset-0 z-40 bg-black"
+            onClick={() => setShowModal(false)}
+          />
         </>
       ) : null}
     </>

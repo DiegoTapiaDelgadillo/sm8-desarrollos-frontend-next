@@ -1,6 +1,13 @@
+"use client";
+
 import clsx from "clsx";
 
-export default function PlusSvg({ onClick, className }) {
+interface PlusSvgProps {
+  onClick?: () => void;
+  className?: string;
+}
+
+export default function PlusSvg({ onClick, className }: PlusSvgProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

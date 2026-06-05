@@ -1,21 +1,29 @@
+"use client";
+
 import clsx from "clsx";
-import { useState, useEffect } from "react";
-export default function BurgerButton({ onClick, className }) {
+import { useEffect, useState } from "react";
+
+type BurgerButtonProps = {
+  onClick: () => void;
+  className?: string;
+};
+
+export default function BurgerButton({ onClick, className }: BurgerButtonProps) {
   const [scrolling, setScrolling] = useState(false);
-  const handleScroll = () => {
-    if (window.scrollY > 0) {
-      setScrolling(true);
-    } else {
-      setScrolling(false);
-    }
-  };
 
   useEffect(() => {
+    const handleScroll = () => {
+      setScrolling(window.scrollY > 0);
+    };
+
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

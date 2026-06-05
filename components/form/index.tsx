@@ -1,15 +1,56 @@
+"use client";
+
 import Input from "../input";
-import { useState } from "react";
+import { useState, type ChangeEvent, type FormEvent } from "react";
 import CloseButton from "../closeButton";
 import SvgLoanding from "../loading/svgLoanding";
 import CheckSvg from "../checkSvg";
 import useFormValidation from "../../hooks/useValidationForm";
 
+type MessageStatus = "neutral" | "loading" | "enviado" | "error";
+
+interface FormDataState {
+  nombre: string;
+  correoDestino: string;
+  telefono: string;
+  asunto: string;
+  empresa: string;
+  ciudad: string;
+  mensaje: string;
+  origen: string;
+}
+
+interface FormErrors {
+  [key: string]: string | undefined;
+  nombre?: string;
+  correoDestino?: string;
+  telefono?: string;
+  asunto?: string;
+  empresa?: string;
+  ciudad?: string;
+  mensaje?: string;
+  origen?: string;
+}
+
+interface InputItem {
+  placeholder: string;
+  type: string;
+  name: keyof FormDataState;
+  id: string;
+  value: string;
+  error?: string;
+}
+
 export default function Form() {
-  const { errors, validateForm } = useFormValidation();
-  const [messageStatus, setMessageStatus] = useState("neutral");
+  const { errors, validateForm } = useFormValidation() as {
+    errors: FormErrors;
+    validateForm: (data: FormDataState) => Promise<void> | void;
+  };
+
+  const [messageStatus, setMessageStatus] = useState<MessageStatus>("neutral");
   const [modalStatus, setModalStatus] = useState(false);
-  const [formData, setFormData] = useState({
+
+  const [formData, setFormData] = useState<FormDataState>({
     nombre: "",
     correoDestino: "",
     telefono: "",
@@ -20,24 +61,29 @@ export default function Form() {
     origen: "Desarrollos",
   });
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = event.target;
-    setFormData({
-      ...formData,
+
+    setFormData((prev) => ({
+      ...prev,
       [name]: value,
-    });
+    }));
   };
 
   const closeModal = () => {
     setModalStatus(false);
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     try {
       await validateForm(formData);
       setMessageStatus("loading");
       setModalStatus(true);
+
       const response = await fetch(
         "https://api.sm8.com.mx:13003/api/enviar-correo",
         {
@@ -48,6 +94,7 @@ export default function Form() {
           body: JSON.stringify(formData),
         }
       );
+
       if (response.ok) {
         setMessageStatus("enviado");
       } else {
@@ -55,10 +102,12 @@ export default function Form() {
       }
     } catch (error) {
       console.error("Error al enviar la solicitud POST:", error);
+      setMessageStatus("error");
+      setModalStatus(true);
     }
   };
 
-  const data = [
+  const data: InputItem[] = [
     {
       placeholder: "Nombre",
       type: "text",
@@ -124,7 +173,8 @@ export default function Form() {
             error={item.error}
           />
         ))}
-        <div className=" w-full py-2">
+
+        <div className="w-full py-2">
           <textarea
             className="w-full border border-neutral-500 rounded-xl p-2 shadow"
             placeholder="Cuentanos más sobre tu proyecto..."
@@ -134,40 +184,45 @@ export default function Form() {
             value={formData.mensaje}
           />
         </div>
+
         <button
           type="submit"
-          className=" w-full bg-black text-white p-4 rounded-xl shadow border border-black hover:bg-white hover:text-black ease-in-out duration-300"
+          className="w-full bg-black text-white p-4 rounded-xl shadow border border-black hover:bg-white hover:text-black ease-in-out duration-300"
         >
           Enviar
         </button>
       </form>
+
       {modalStatus ? (
         <>
           <div className="justify-center items-center flex fixed inset-0 z-50 outline-none focus:outline-none bg-my-blur animate-fade">
             <div className="relative w-full">
               <div className="w-auto p-2 sm:px-24 md:px-48 lg:px-56 xl:px-72 2xl:px-96">
                 <div className="bg-black rounded-xl p-2">
-                  <div className="flex items-start justify-end w-full ">
+                  <div className="flex items-start justify-end w-full">
                     <CloseButton onClick={closeModal} />
                   </div>
-                  <div className=" flex items-center justify-center py-24">
+
+                  <div className="flex items-center justify-center py-24">
                     {messageStatus === "loading" && (
                       <>
-                        <p className=" text-white pr-2">Enviando mensaje</p>
+                        <p className="text-white pr-2">Enviando mensaje</p>
                         <SvgLoanding />
                       </>
                     )}
+
                     {messageStatus === "enviado" && (
                       <>
-                        <p className=" text-white pr-2">
+                        <p className="text-white pr-2">
                           Mensaje enviado correctamente
                         </p>
                         <CheckSvg />
                       </>
                     )}
+
                     {messageStatus === "error" && (
                       <>
-                        <p className=" text-white">
+                        <p className="text-white">
                           Error al enviar el mensaje
                         </p>
                       </>
@@ -177,6 +232,7 @@ export default function Form() {
               </div>
             </div>
           </div>
+
           <div className="opacity-80 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
