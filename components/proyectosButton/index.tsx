@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
+
 export default function ProyectosButton() {
   return (
-    <div className=" hover:text-black/50 flex ease-in-out duration-300 text-sm lg:text-base items-center">
-      <Link to={"/Proyectos"} className=" underline">
+    <div className="hover:text-black/50 flex ease-in-out duration-300 text-sm lg:text-base items-center">
+      <Link href="/Proyectos" className="underline">
         Conoce todos nuestros proyectos
       </Link>
       <svg

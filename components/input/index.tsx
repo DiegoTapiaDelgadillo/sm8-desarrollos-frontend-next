@@ -1,3 +1,15 @@
+import type { ChangeEvent } from "react";
+
+interface InputProps {
+  placeholder: string;
+  type: string;
+  name: string;
+  id: string;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  value: string;
+  error?: string;
+}
+
 export default function Input({
   placeholder,
   type,
@@ -5,9 +17,9 @@ export default function Input({
   id,
   onChange,
   value,
-  error
-}) {
-  return ( 
+  error,
+}: InputProps) {
+  return (
     <div className="py-2">
       <input
         placeholder={placeholder}

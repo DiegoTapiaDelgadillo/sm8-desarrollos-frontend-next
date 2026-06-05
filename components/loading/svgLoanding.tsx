@@ -1,23 +1,22 @@
-import "./index.css";
 export default function SvgLoanding() {
   return (
     <>
-      <div class="jelly"></div>
-      <svg width="0" height="0" class="jelly-maker">
+      <div className="jelly"></div>
+      <svg width="0" height="0" className="jelly-maker" aria-hidden="true">
         <defs>
           <filter id="uib-jelly-ooze">
             <feGaussianBlur
               in="SourceGraphic"
               stdDeviation="6.25"
               result="blur"
-            ></feGaussianBlur>
+            />
             <feColorMatrix
               in="blur"
               mode="matrix"
-              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+              values="1 0 0 0 0  1 0 0 0 0  0 0 1 0 0  0 0 0 18 -7"
               result="ooze"
-            ></feColorMatrix>
-            <feBlend in="SourceGraphic" in2="ooze"></feBlend>
+            />
+            <feBlend in="SourceGraphic" in2="ooze" />
           </filter>
         </defs>
       </svg>
