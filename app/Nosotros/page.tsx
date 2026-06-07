@@ -1,15 +1,12 @@
 "use client";
 
-import { useEffect } from "react";
 import Mural from "../../components/mural";
 import Collapse from "../../components/collapse";
 import CardContact from "../../components/cardContact";
-import ScrollTop from "../../hooks/scrollTop";
+import useScrollTop from "../../hooks/scrollTop";
 
 export default function NosotrosPage() {
-  useEffect(() => {
-    ScrollTop();
-  }, []);
+  useScrollTop();
 
   const data: { title: string; text: string }[] = [
     {

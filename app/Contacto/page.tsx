@@ -1,16 +1,13 @@
 "use client";
 
-import { useEffect } from "react";
 import Mural from "../../components/mural";
 import TextTitles from "../../components/textTitles";
 import TextBody from "../../components/textBody";
 import Form from "../../components/form";
-import ScrollTop from "../../hooks/scrollTop";
+import useScrollTop from "../../hooks/scrollTop";
 
-export default function ContactoPage() {
-  useEffect(() => {
-    ScrollTop();
-  }, []);
+export default function Page() {
+  useScrollTop();
 
   return (
     <>

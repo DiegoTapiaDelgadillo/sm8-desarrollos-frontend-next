@@ -1,33 +1,45 @@
-import { useState } from 'react';
+"use client";
+
+import { useState } from "react";
+
+interface FormErrors {
+  [key: string]: string;
+}
+
+interface FormData {
+  [key: string]: string;
+}
 
 const useFormValidation = () => {
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<FormErrors>({});
 
-  const validateName = (name) => {
+  const validateName = (name: string): string => {
     const regex = /^[a-zA-Z\s]+$/;
-    return regex.test(name) ? '' : 'El nombre solo debe contener letras y espacios.';
+    return regex.test(name) ? "" : "El nombre solo debe contener letras y espacios.";
   };
 
-  const validateEmail = (email) => {
+  const validateEmail = (email: string): string => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email) ? '' : 'El formato del email no es válido.';
+    return regex.test(email) ? "" : "El formato del email no es válido.";
   };
 
-  const validatePhoneNumber = (phoneNumber) => {
+  const validatePhoneNumber = (phoneNumber: string): string => {
     const regex = /^\d{10}$/;
-    return regex.test(phoneNumber) ? '' : 'El número de teléfono debe contener 10 dígitos.';
+    return regex.test(phoneNumber)
+      ? ""
+      : "El número de teléfono debe contener 10 dígitos.";
   };
 
-  const validateField = (name, value) => {
-    let error = '';
+  const validateField = (name: string, value: string): string => {
+    let error = "";
     switch (name) {
-      case 'nombre':
+      case "nombre":
         error = validateName(value);
         break;
-      case 'email':
+      case "email":
         error = validateEmail(value);
         break;
-      case 'telefono':
+      case "telefono":
         error = validatePhoneNumber(value);
         break;
       default:
@@ -40,9 +52,9 @@ const useFormValidation = () => {
     return error;
   };
 
-  const validateForm = (formData) => {
+  const validateForm = (formData: FormData): Promise<void> => {
     return new Promise((resolve, reject) => {
-      const formErrors = {};
+      const formErrors: FormErrors = {};
       Object.keys(formData).forEach((key) => {
         const error = validateField(key, formData[key]);
         if (error) formErrors[key] = error;

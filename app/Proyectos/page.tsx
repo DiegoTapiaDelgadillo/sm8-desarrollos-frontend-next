@@ -1,14 +1,11 @@
 "use client";
 
-import { useEffect } from "react";
 import Mural from "../../components/mural";
 import CardProyect from "../../components/cardProyect";
-import ScrollTop from "../../hooks/scrollTop";
+import useScrollTop from "../../hooks/scrollTop";
 
 export default function ProyectosPage() {
-  useEffect(() => {
-    ScrollTop();
-  }, []);
+  useScrollTop();
 
   const arrayBitte: string[] = [
     "/assets/Bitte1.webp",

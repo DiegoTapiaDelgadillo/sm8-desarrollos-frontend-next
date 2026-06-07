@@ -60,7 +60,7 @@ export default function HomePage() {
         <div data-aos="zoom-in">
           <TextTitles text="Desarrollando tus ideas con amor y pasión" />
           <TextBody text="Sómos un equipo de expertos con más de 30 años de experiencia en el medio Profesional y Técnico para cubrir áreas, pre- fases y etapas de la construcción." />
-          <Button text="Conoce nuestra historia" rute="/NosotrosPage" />
+          <Button text="Conoce nuestra historia" rute="/Nosotros" />
         </div>
       </div>
 
