@@ -5,6 +5,7 @@ type CardProyectosProps = {
   title: string;
   textBody: string;
   imagenes: string[];
+  variant?: "projects" | "home";
 };
 
 export default function CardProyectos({

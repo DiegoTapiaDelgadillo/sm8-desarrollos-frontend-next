@@ -72,18 +72,21 @@ export default function HomePage() {
             title="Bitte"
             textBody="Impresionante y exclusivo desarrollo de 116 departamentos en el corazón de Tijuana, que mezcla un estilo minimalista y espacios abiertos con vegetación. Distinguiéndose por ser piezas vanguardistas de diseño, funcionales e inteligentes."
             imagenes={arrayBitte}
+            variant="home"
           />
           <CardProyectos
             img="/assets/cp.webp"
             title="Colina Park Tijuana"
             textBody="Concepto residencial que busca conectarte con los tuyos y con la naturaleza, haciendo posible una comunidad de innovación y modernidad."
             imagenes={arrayColina}
+            variant="home"
           />
           <CardProyectos
             img="/assets/laredo3.webp"
             title="Sideways Living"
             textBody="Nueva propuesta vertical en La Cacho (Laredo, Tijuana) para las personas que buscan un estilo de vida urbano, activo, conectado y funcional. 82 unidades en 9 niveles."
             imagenes={arrayLaredo}
+            variant="home"
           />
         </div>
 

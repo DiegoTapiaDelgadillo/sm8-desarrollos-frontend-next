@@ -4,6 +4,7 @@ import { useState } from "react";
 
 type CarruselProps = {
   images: string[];
+  variant?: "projects" | "home";
 };
 
 export default function Carrusel({ images }: CarruselProps) {

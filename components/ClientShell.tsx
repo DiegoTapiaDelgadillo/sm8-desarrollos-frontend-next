@@ -51,7 +51,6 @@ const socialMedia: SocialMediaItem[] = [
 ];
 
 export default function ClientShell({ children }: ClientShellProps) {
-  // ✅ Esperar a que el componente esté montado antes de inicializar AOS
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -68,12 +67,11 @@ export default function ClientShell({ children }: ClientShellProps) {
     });
 
     return () => {
-      AOS.refreshHard(); // limpieza al desmontar
+      AOS.refreshHard();
     };
   }, [mounted]);
 
   return (
-    // suppressHydrationWarning en el wrapper principal
     <div suppressHydrationWarning>
       <Navbar pages={pages} socialMedia={socialMedia} />
       {children}
