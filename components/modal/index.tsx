@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import CloseButton from "../closeButton";
 import Carrusel from "../carrusel";
 
@@ -11,7 +12,56 @@ type ModalProps = {
 
 export default function Modal({ imagenes, variant = "projects" }: ModalProps) {
   const [showModal, setShowModal] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const isHome = variant === "home";
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [showModal]);
+
+  const modalContent = isHome ? (
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 p-4">
+      <div className="relative w-[95vw] h-[90vh] max-w-7xl overflow-hidden rounded-2xl bg-black/90 shadow-2xl flex flex-col">
+        <div className="flex items-start justify-end w-full p-4 shrink-0">
+          <CloseButton onClick={() => setShowModal(false)} />
+        </div>
+        <div className="flex-1 px-4 pb-4 min-h-0">
+          <Carrusel images={imagenes} variant="home" />
+        </div>
+      </div>
+    </div>
+  ) : (
+    <>
+      <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70 p-8">
+        {/* Contenedor compacto centrado, NO full screen */}
+        <div className="relative w-full max-w-4xl rounded-2xl overflow-hidden shadow-2xl bg-black">
+          {/* Botón cerrar flotante arriba a la derecha */}
+          <div className="absolute top-3 right-3 z-10">
+            <CloseButton onClick={() => setShowModal(false)} />
+          </div>
+
+          {/* Imagen del carrusel con altura fija estética */}
+          <div className="w-full h-[70vh]">
+            <Carrusel images={imagenes} variant="home" />
+          </div>
+        </div>
+      </div>
+      <div
+        className="fixed inset-0 z-[9998] opacity-80 bg-black"
+        onClick={() => setShowModal(false)}
+      />
+    </>
+  );
 
   return (
     <>
@@ -23,43 +73,9 @@ export default function Modal({ imagenes, variant = "projects" }: ModalProps) {
         Ver imágenes
       </button>
 
-      {showModal ? (
-        <>
-          {isHome ? (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-my-blur animate-fade p-4">
-              <div className="relative w-[95vw] h-[90vh] max-w-7xl overflow-hidden rounded-2xl bg-black/90 shadow-2xl">
-                <div className="flex items-start justify-end w-full p-4 relative z-10">
-                  <CloseButton onClick={() => setShowModal(false)} />
-                </div>
-
-                <div className="w-full h-[calc(90vh-4rem)] px-4 pb-4">
-                  <Carrusel images={imagenes} variant="home" />
-                </div>
-              </div>
-            </div>
-          ) : (
-            <>
-              <div className="justify-center items-center flex fixed inset-0 z-50 outline-none focus:outline-none bg-my-blur animate-fade">
-                <div className="relative w-full">
-                  <div className="w-auto rounded-md overscroll-y-contain">
-                    <div className="p-4 lg:p-40 xl:p-72 2xl:p-80 border-y border-r border-black rounded-r-md">
-                      <div className="flex items-start justify-end w-full py-2">
-                        <CloseButton onClick={() => setShowModal(false)} />
-                      </div>
-                      <Carrusel images={imagenes} variant="projects" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div
-                className="opacity-80 fixed inset-0 z-40 bg-black"
-                onClick={() => setShowModal(false)}
-              />
-            </>
-          )}
-        </>
-      ) : null}
+      {/* Portal: renderiza el modal directamente en document.body,
+          fuera del árbol del card y de cualquier transform de AOS */}
+      {mounted && showModal && createPortal(modalContent, document.body)}
     </>
   );
 }

@@ -64,6 +64,7 @@ export default function ClientShell({ children }: ClientShellProps) {
       duration: 1100,
       once: true, // evita re-animaciones al hacer scroll de regreso
       mirror: false,
+      startEvent: "DOMContentLoaded",
     });
 
     return () => {
