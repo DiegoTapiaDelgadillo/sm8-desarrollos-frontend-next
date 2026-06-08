@@ -32,11 +32,7 @@ export default function Carrusel({
           src={images[currentImage]}
           alt={`Slide ${currentImage + 1}`}
           className={
-            isHome
-              ? // ocupa todo el espacio disponible y recorta proporcional
-                "w-full h-full object-cover"
-              : // proyectos: comportamiento original
-                "w-full h-full rounded-l-md"
+            isHome ? "w-full h-full object-cover" : "w-full h-full rounded-l-md"
           }
         />
 

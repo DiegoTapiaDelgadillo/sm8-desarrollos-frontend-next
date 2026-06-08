@@ -43,14 +43,12 @@ export default function Modal({ imagenes, variant = "projects" }: ModalProps) {
   ) : (
     <>
       <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70 p-8">
-        {/* Contenedor compacto centrado, NO full screen */}
         <div className="relative w-full max-w-4xl rounded-2xl overflow-hidden shadow-2xl bg-black">
-          {/* Botón cerrar flotante arriba a la derecha */}
           <div className="absolute top-3 right-3 z-10">
             <CloseButton onClick={() => setShowModal(false)} />
           </div>
 
-          {/* Imagen del carrusel con altura fija estética */}
+          {/* Imagen del carrusel con altura fija*/}
           <div className="w-full h-[70vh]">
             <Carrusel images={imagenes} variant="home" />
           </div>
@@ -72,9 +70,6 @@ export default function Modal({ imagenes, variant = "projects" }: ModalProps) {
       >
         Ver imágenes
       </button>
-
-      {/* Portal: renderiza el modal directamente en document.body,
-          fuera del árbol del card y de cualquier transform de AOS */}
       {mounted && showModal && createPortal(modalContent, document.body)}
     </>
   );
