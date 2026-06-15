@@ -1,21 +1,11 @@
 import Link from "next/link";
 import clsx from "clsx";
-
-type PageItem = {
-  text: string;
-  rute: string;
-};
-
-type SocialMediaItem = {
-  rute: string;
-  name: string;
-  icon: string;
-};
+import type { PageLink, SocialLink } from "@/types";
 
 type MobileProps = {
   className?: string;
-  pages: PageItem[];
-  socialMedia: SocialMediaItem[];
+  pages: PageLink[];
+  socialMedia: SocialLink[];
   onClick: () => void;
 };
 
@@ -29,14 +19,14 @@ export default function Mobile({
     <div
       className={clsx(
         "sm:hidden grid grid-rows-2 items-center bg-black fixed h-full w-full z-40 animate-fade-left px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24",
-        className
+        className,
       )}
     >
       <div className="w-full pt-56">
         {pages.map((item) => (
           <div className="py-8 border-b-2 border-neutral-500" key={item.text}>
             <Link
-              href={item.rute}
+              href={item.route}
               className="text-2xl font-bold hover:text-white/50 ease-in-out duration-300 text-white"
               onClick={onClick}
             >
@@ -50,7 +40,7 @@ export default function Mobile({
         {socialMedia.map((item) => (
           <div className="pl-4" key={item.name}>
             <a
-              href={item.rute}
+              href={item.route}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={item.name}

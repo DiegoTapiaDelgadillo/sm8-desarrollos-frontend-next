@@ -1,19 +1,10 @@
 import Link from "next/link";
-
-type PageItem = {
-  text: string;
-  rute: string;
-};
-
-type SocialMediaItem = {
-  rute: string;
-  name: string;
-  icon: string;
-};
+import type { PageLink, SocialLink } from "@/types";
+import { externalLinks } from "@/data/navigation";
 
 type FooterProps = {
-  socialMedia: SocialMediaItem[];
-  pages: PageItem[];
+  socialMedia: SocialLink[];
+  pages: PageLink[];
 };
 
 export default function Footer({ socialMedia, pages }: FooterProps) {
@@ -35,7 +26,7 @@ export default function Footer({ socialMedia, pages }: FooterProps) {
           {pages.map((item) => (
             <div key={item.text}>
               <Link
-                href={item.rute}
+                href={item.route}
                 className="text-white hover:text-white/50 ease-in-out duration-300 text-sm"
               >
                 {item.text}
@@ -47,7 +38,7 @@ export default function Footer({ socialMedia, pages }: FooterProps) {
         <div>
           <p className="text-white font-bold text-xl pb-1">Más de SM8</p>
           <a
-            href="https://www.sm8.com.mx/"
+            href={externalLinks.sm8Mexico}
             target="_blank"
             rel="noopener noreferrer"
             className="text-white text-sm hover:text-white/50 ease-in-out duration-300"
@@ -56,7 +47,7 @@ export default function Footer({ socialMedia, pages }: FooterProps) {
           </a>
           <br />
           <a
-            href="https://www.sm8.es/"
+            href={externalLinks.sm8Spain}
             target="_blank"
             rel="noopener noreferrer"
             className="text-white text-sm hover:text-white/50 ease-in-out duration-300"
@@ -71,7 +62,7 @@ export default function Footer({ socialMedia, pages }: FooterProps) {
             {socialMedia.map((item) => (
               <div className="pr-4" key={item.name}>
                 <a
-                  href={item.rute}
+                  href={item.route}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={item.name}

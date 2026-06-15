@@ -3,34 +3,10 @@
 import Input from "../input";
 import { useState, type ChangeEvent, type FormEvent } from "react";
 import CloseButton from "../closeButton";
-import SvgLoanding from "../loading/svgLoanding";
+import SvgLoading from "../loading/svgLoanding";
 import CheckSvg from "../checkSvg";
 import useFormValidation from "../../hooks/useValidationForm";
-
-type MessageStatus = "neutral" | "loading" | "enviado" | "error";
-
-interface FormDataState {
-  nombre: string;
-  correoDestino: string;
-  telefono: string;
-  asunto: string;
-  empresa: string;
-  ciudad: string;
-  mensaje: string;
-  origen: string;
-}
-
-interface FormErrors {
-  [key: string]: string | undefined;
-  nombre?: string;
-  correoDestino?: string;
-  telefono?: string;
-  asunto?: string;
-  empresa?: string;
-  ciudad?: string;
-  mensaje?: string;
-  origen?: string;
-}
+import type { FormDataState, FormErrors, MessageStatus } from "@/types";
 
 interface InputItem {
   placeholder: string;
@@ -42,10 +18,7 @@ interface InputItem {
 }
 
 export default function Form() {
-  const { errors, validateForm } = useFormValidation() as {
-    errors: FormErrors;
-    validateForm: (data: FormDataState) => Promise<void> | void;
-  };
+  const { errors, validateForm } = useFormValidation();
 
   const [messageStatus, setMessageStatus] = useState<MessageStatus>("neutral");
   const [modalStatus, setModalStatus] = useState(false);
@@ -62,7 +35,7 @@ export default function Form() {
   });
 
   const handleInputChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = event.target;
 
@@ -92,7 +65,7 @@ export default function Form() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(formData),
-        }
+        },
       );
 
       if (response.ok) {
@@ -107,6 +80,8 @@ export default function Form() {
     }
   };
 
+  const typedErrors = errors as FormErrors;
+
   const data: InputItem[] = [
     {
       placeholder: "Nombre",
@@ -114,7 +89,7 @@ export default function Form() {
       name: "nombre",
       id: "nombre",
       value: formData.nombre,
-      error: errors.nombre,
+      error: typedErrors.nombre,
     },
     {
       placeholder: "Correo electrónico",
@@ -122,7 +97,7 @@ export default function Form() {
       name: "correoDestino",
       id: "correoDestino",
       value: formData.correoDestino,
-      error: errors.correoDestino,
+      error: typedErrors.correoDestino,
     },
     {
       placeholder: "Teléfono",
@@ -130,7 +105,7 @@ export default function Form() {
       name: "telefono",
       id: "telefono",
       value: formData.telefono,
-      error: errors.telefono,
+      error: typedErrors.telefono,
     },
     {
       placeholder: "Asunto",
@@ -138,7 +113,7 @@ export default function Form() {
       name: "asunto",
       id: "asunto",
       value: formData.asunto,
-      error: errors.asunto,
+      error: typedErrors.asunto,
     },
     {
       placeholder: "Empresa",
@@ -146,7 +121,7 @@ export default function Form() {
       name: "empresa",
       id: "empresa",
       value: formData.empresa,
-      error: errors.empresa,
+      error: typedErrors.empresa,
     },
     {
       placeholder: "Ciudad",
@@ -154,7 +129,7 @@ export default function Form() {
       name: "ciudad",
       id: "ciudad",
       value: formData.ciudad,
-      error: errors.ciudad,
+      error: typedErrors.ciudad,
     },
   ];
 
@@ -207,7 +182,7 @@ export default function Form() {
                     {messageStatus === "loading" && (
                       <>
                         <p className="text-white pr-2">Enviando mensaje</p>
-                        <SvgLoanding />
+                        <SvgLoading />
                       </>
                     )}
 
@@ -222,9 +197,7 @@ export default function Form() {
 
                     {messageStatus === "error" && (
                       <>
-                        <p className="text-white">
-                          Error al enviar el mensaje
-                        </p>
+                        <p className="text-white">Error al enviar el mensaje</p>
                       </>
                     )}
                   </div>

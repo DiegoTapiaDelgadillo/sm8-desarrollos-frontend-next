@@ -21,7 +21,7 @@ export default function CardContact({ img }: CardContactProps) {
         <h2 className="text-white py-8 text-xs md:text-lg text-center sm:text-start">
           Contáctanos y Descubre Cómo Podemos Hacer Brillar tus Ideas
         </h2>
-        <Button text="Contactanos" rute="/Contacto" />
+        <Button text="Contactanos" route="/Contacto" />
       </div>
     </div>
   );

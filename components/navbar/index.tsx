@@ -5,21 +5,11 @@ import Link from "next/link";
 import BurgerButton from "../burgerButton";
 import CloseButton from "../closeButton";
 import Mobile from "./mobile";
-
-type PageItem = {
-  text: string;
-  rute: string;
-};
-
-type SocialMediaItem = {
-  rute: string;
-  name: string;
-  icon: string;
-};
+import type { PageLink, SocialLink } from "@/types";
 
 type NavbarProps = {
-  pages: PageItem[];
-  socialMedia: SocialMediaItem[];
+  pages: PageLink[];
+  socialMedia: SocialLink[];
 };
 
 export default function Navbar({ pages, socialMedia }: NavbarProps) {
@@ -64,7 +54,7 @@ export default function Navbar({ pages, socialMedia }: NavbarProps) {
           {pages.map((item) => (
             <div key={item.text} className="pl-8">
               <Link
-                href={item.rute}
+                href={item.route}
                 className="text-white hover:text-white/50 ease-in-out duration-300 text-lg"
               >
                 {item.text}
@@ -77,7 +67,7 @@ export default function Navbar({ pages, socialMedia }: NavbarProps) {
           {socialMedia.map((item) => (
             <div className="pl-4" key={item.name}>
               <a
-                href={item.rute}
+                href={item.route}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={item.name}

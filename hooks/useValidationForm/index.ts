@@ -1,12 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import type { FormDataState } from "@/types";
 
 interface FormErrors {
-  [key: string]: string;
-}
-
-interface FormData {
   [key: string]: string;
 }
 
@@ -15,7 +12,9 @@ const useFormValidation = () => {
 
   const validateName = (name: string): string => {
     const regex = /^[a-zA-Z\s]+$/;
-    return regex.test(name) ? "" : "El nombre solo debe contener letras y espacios.";
+    return regex.test(name)
+      ? ""
+      : "El nombre solo debe contener letras y espacios.";
   };
 
   const validateEmail = (email: string): string => {
@@ -36,7 +35,7 @@ const useFormValidation = () => {
       case "nombre":
         error = validateName(value);
         break;
-      case "email":
+      case "correoDestino":
         error = validateEmail(value);
         break;
       case "telefono":
@@ -52,11 +51,12 @@ const useFormValidation = () => {
     return error;
   };
 
-  const validateForm = (formData: FormData): Promise<void> => {
+  const validateForm = (formData: FormDataState): Promise<void> => {
     return new Promise((resolve, reject) => {
       const formErrors: FormErrors = {};
-      Object.keys(formData).forEach((key) => {
-        const error = validateField(key, formData[key]);
+      const entries = Object.entries(formData) as [string, string][];
+      entries.forEach(([key, value]) => {
+        const error = validateField(key, value);
         if (error) formErrors[key] = error;
       });
 

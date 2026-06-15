@@ -3,17 +3,17 @@ import clsx from "clsx";
 
 interface ButtonProps {
   text: string;
-  rute: string;
+  route: string;
   className?: string;
 }
 
-export default function Button({ text, rute, className }: ButtonProps) {
+export default function Button({ text, route, className }: ButtonProps) {
   return (
     <Link
-      href={rute}
+      href={route}
       className={clsx(
         "p-4 w-full sm:w-auto rounded-xl border border-black text-sm sm:text-base shadow-md hover:bg-black hover:text-white ease-in-out duration-300 bg-white inline-flex items-center justify-center",
-        className
+        className,
       )}
     >
       {text}

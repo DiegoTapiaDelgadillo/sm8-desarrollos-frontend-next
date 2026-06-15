@@ -1,24 +1,21 @@
-"use client";
-
 import Mural from "../../components/mural";
 import CardProyect from "../../components/cardProyect";
-import useScrollTop from "../../hooks/scrollTop";
-import { proyectosData } from "../../data/proyectos";
+import ScrollToTop from "@/components/scrollToTop";
+import { allProjects } from "../../data/projects";
 
 export default function ProyectosPage() {
-  useScrollTop();
-
   return (
     <>
+      <ScrollToTop />
       <Mural Fondo="/assets/cp.webp" title="Conoce Todos Nuestros Proyectos" />
 
-      {proyectosData.map((project) => (
+      {allProjects.map((project) => (
         <CardProyect
           key={project.title}
-          Fondo={project.Fondo}
-          text={project.text}
+          Fondo={project.heroImage}
+          text={project.description}
           title={project.title}
-          imagenes={project.imagenes as string[]}
+          imagenes={project.images}
           reduceBrightness={project.reduceBrightness}
         />
       ))}
